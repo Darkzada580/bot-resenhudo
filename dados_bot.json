@@ -1,0 +1,291 @@
+{
+  "usuarios": {
+    "1486135726356562051": {
+      "id": "1486135726356562051",
+      "saldo": 0,
+      "saldo_sujo": 0,
+      "status": "Normal",
+      "investigado": false,
+      "crime_pontos": 0,
+      "ultimo_cargo": "Diretor Executivo",
+      "ultimo_papel": "Presidente",
+      "cargo_publico": "Presidente",
+      "partido": "PL",
+      "alinhamento": "☀️ Lado da Luz",
+      "emprego": "Nenhum",
+      "emprego_ativo": null,
+      "emprego_assinado_em": null,
+      "emprego_encerrado_em": null,
+      "ultimo_ponto": null,
+      "itens": {
+        "arma": 0,
+        "colete": 0,
+        "carro": 0,
+        "mansao": 0
+      },
+      "empresas": {
+        "posto": 0,
+        "emissora": 0
+      },
+      "energia": 100,
+      "energia_local": 0,
+      "divida": 0,
+      "taxa_reduzida": 0,
+      "prisao": 0,
+      "preso_ate": 0,
+      "prisao_guild_id": null,
+      "hospital": 0,
+      "faccao": null,
+      "policial": true,
+      "preso": false
+    },
+    "907753409678016592": {
+      "id": "907753409678016592",
+      "saldo": 0,
+      "saldo_sujo": 25597,
+      "status": "Livre",
+      "investigado": false,
+      "crime_pontos": 0,
+      "ultimo_cargo": "Diretor Executivo",
+      "ultimo_papel": "Deputado",
+      "cargo_publico": "Deputado",
+      "partido": "AVANTE",
+      "alinhamento": "⚖️ Neutro",
+      "emprego": "Nenhum",
+      "emprego_ativo": null,
+      "emprego_assinado_em": null,
+      "emprego_encerrado_em": null,
+      "ultimo_ponto": null,
+      "itens": {
+        "arma": 0,
+        "colete": 0,
+        "carro": 0,
+        "mansao": 0
+      },
+      "empresas": {
+        "posto": 0,
+        "emissora": 0
+      },
+      "energia": 100,
+      "energia_local": 0,
+      "divida": 0,
+      "taxa_reduzida": 0,
+      "prisao": 0,
+      "preso_ate": 0,
+      "prisao_guild_id": null,
+      "hospital": 0,
+      "faccao": null,
+      "policial": false,
+      "preso": false
+    },
+    "1203889969832267838": {
+      "id": "1203889969832267838",
+      "saldo": 0,
+      "saldo_sujo": 0,
+      "status": "Normal",
+      "investigado": false,
+      "crime_pontos": 0,
+      "ultimo_cargo": "Nenhum",
+      "ultimo_papel": "Nenhum",
+      "cargo_publico": "Nenhum",
+      "partido": "Nenhum",
+      "alinhamento": "Nenhum",
+      "emprego": "Nenhum",
+      "emprego_ativo": null,
+      "emprego_assinado_em": null,
+      "emprego_encerrado_em": null,
+      "ultimo_ponto": null,
+      "itens": {
+        "arma": 0,
+        "colete": 0,
+        "carro": 0,
+        "mansao": 0
+      },
+      "empresas": {
+        "posto": 0,
+        "emissora": 0
+      },
+      "energia": 100,
+      "energia_local": 0,
+      "divida": 0,
+      "taxa_reduzida": 0,
+      "prisao": 0,
+      "preso_ate": 0,
+      "prisao_guild_id": null,
+      "hospital": 0,
+      "faccao": null,
+      "policial": false,
+      "preso": false
+    },
+    "292953664492929025": {
+      "id": "292953664492929025",
+      "saldo": 0,
+      "saldo_sujo": 0,
+      "status": "Preso",
+      "investigado": false,
+      "crime_pontos": 0,
+      "ultimo_cargo": "Nenhum",
+      "ultimo_papel": "Nenhum",
+      "cargo_publico": "Nenhum",
+      "partido": "Nenhum",
+      "alinhamento": "Nenhum",
+      "emprego": "Nenhum",
+      "emprego_ativo": null,
+      "emprego_assinado_em": null,
+      "emprego_encerrado_em": null,
+      "ultimo_ponto": null,
+      "itens": {
+        "arma": 0,
+        "colete": 0,
+        "carro": 0,
+        "mansao": 0
+      },
+      "empresas": {
+        "posto": 0,
+        "emissora": 0
+      },
+      "energia": 100,
+      "energia_local": 0,
+      "divida": 0,
+      "taxa_reduzida": 0,
+      "prisao": 3,
+      "preso_ate": 0,
+      "prisao_guild_id": null,
+      "hospital": 0,
+      "faccao": null,
+      "policial": false,
+      "preso": true
+    },
+    "703279519662080132": {
+      "id": "703279519662080132",
+      "saldo": 0,
+      "saldo_sujo": 0,
+      "status": "Normal",
+      "investigado": false,
+      "crime_pontos": 0,
+      "ultimo_cargo": "Trabalhador",
+      "ultimo_papel": "Deputado",
+      "cargo_publico": "Nenhum",
+      "partido": "PSOL",
+      "alinhamento": "☀️ Lado da Luz",
+      "emprego": "Nenhum",
+      "emprego_ativo": null,
+      "emprego_assinado_em": null,
+      "emprego_encerrado_em": null,
+      "ultimo_ponto": null,
+      "itens": {
+        "arma": 0,
+        "colete": 0,
+        "carro": 0,
+        "mansao": 0
+      },
+      "empresas": {
+        "posto": 0,
+        "emissora": 0
+      },
+      "energia": 100,
+      "energia_local": 0,
+      "divida": 0,
+      "taxa_reduzida": 0,
+      "prisao": 0,
+      "preso_ate": 0,
+      "prisao_guild_id": null,
+      "hospital": 0,
+      "faccao": null,
+      "policial": true,
+      "preso": false
+    }
+  },
+  "faccoes": {},
+  "cofre_publico": 0,
+  "eleicao": {
+    "status": "encerrada",
+    "votos": {
+      "presidente": {},
+      "governador": {},
+      "prefeito": {}
+    },
+    "resultado": {
+      "presidente": null,
+      "governador": null,
+      "prefeito": null
+    },
+    "campanhas": {
+      "presidente": {},
+      "governador": {},
+      "prefeito": {}
+    }
+  },
+  "stf": {
+    "ministro": 907753409678016592,
+    "investigacoes": [],
+    "eleicao": {
+      "aberta": false,
+      "votos": {
+        "1486135726356562051": 907753409678016592
+      }
+    }
+  },
+  "rachadinhas": {
+    "703279519662080132": {
+      "assessor_id": 1203889969832267838,
+      "ativo": true
+    }
+  },
+  "loja": {
+    "arma": 2500,
+    "colete": 4000,
+    "carro": 12000,
+    "mansao": 35000,
+    "posto": 30000,
+    "emissora": 60000
+  },
+  "tabela_taxas": {
+    "faccao": 500,
+    "loja": 0,
+    "imposto": 200
+  },
+  "cofres_municipais": {},
+  "petrobras": {
+    "presidente": null,
+    "preco_refino": 100,
+    "cofre": 0,
+    "acoes": {}
+  },
+  "congresso": {
+    "propostas": {}
+  },
+  "decretos": [],
+  "folha_pagamento": {
+    "ultimo_pagamento_geral": "2026-10-11T16:37:39.037618+00:00"
+  },
+  "noticias": [
+    {
+      "titulo": "Denúncia de rachadinha",
+      "descricao": "Uma denúncia contra jao foi encaminhada para apuração.",
+      "data": "2026-10-11T17:22:09.821642+00:00"
+    },
+    {
+      "titulo": "Investigação avançou",
+      "descricao": "O caso #1 contra jao ganhou uma nova prova.",
+      "data": "2026-10-11T17:22:53.173835+00:00"
+    }
+  ],
+  "lava_jato": {
+    "casos": [
+      {
+        "id": 1,
+        "usuario_id": 703279519662080132,
+        "denunciante_id": 1486135726356562051,
+        "tipo": "rachadinha",
+        "motivo": "Denúncia de assessor fantasma e repasse irregular.",
+        "evidencias": 1,
+        "aberto": true,
+        "criado_em": "2026-10-11T17:22:09.818754+00:00",
+        "ultima_investigacao": {
+          "1486135726356562051": 1791739373.1705384
+        }
+      }
+    ]
+  }
+}
