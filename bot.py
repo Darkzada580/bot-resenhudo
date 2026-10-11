@@ -374,18 +374,7 @@ CARGOS = [
 ]
 
 POLITICOS = [
-    ("Presidente", 35_000, discord.Color.dark_green(), GIFS["discurso"]),
-    ("Governador", 22_000, discord.Color.teal(), GIFS["papeis"]),
-    ("Governador", 22_000, discord.Color.teal(), GIFS["papeis"]),
-    ("Deputado", 15_000, discord.Color.purple(), GIFS["votacao"]),
-    ("Deputado", 15_000, discord.Color.purple(), GIFS["votacao"]),
-    ("Deputado", 15_000, discord.Color.purple(), GIFS["votacao"]),
-    ("Prefeito", 12_000, discord.Color.from_rgb(87, 170, 255), GIFS["aceno"]),
-    ("Prefeito", 12_000, discord.Color.from_rgb(87, 170, 255), GIFS["aceno"]),
-    ("Prefeito", 12_000, discord.Color.from_rgb(87, 170, 255), GIFS["aceno"]),
-    ("Prefeito", 12_000, discord.Color.from_rgb(87, 170, 255), GIFS["aceno"]),
-    ("Nenhum", 0, discord.Color.from_rgb(71, 75, 78), GIFS["triste"]),
-    ("Nenhum", 0, discord.Color.from_rgb(71, 75, 78), GIFS["triste"]),
+    ("Candidato do Servidor", 0, discord.Color.dark_green(), GIFS["discurso"]),
 ]
 
 PARTIDOS = [
@@ -446,6 +435,7 @@ ROLES_POLITICOS = {
 NOMES_CARGOS_DISCORD = {
     "Presidente": "👑 Presidente",
     "Presidente da República": "👑 Presidente",
+    "Candidato do Servidor": "🗳️ Candidato do Servidor",
     "Governador": "📜 Governador",
     "Deputado": "🏛️ Deputado",
     "Senador": "🏛️ Senador",
@@ -459,6 +449,7 @@ ROLES_ALINHAMENTO = {"Bom": "☀️ Lado da Luz", "Sombrio": "🔮 Lado Sombrio"
 ROLES_POLITICOS_ANTIGOS = {
     "Presidente", "Presidente da República", "👑 Presidente", "Governador", "📜 Governador",
     "Prefeito", "🏙️ Prefeito", "Deputado", "🏛️ Deputado", "Senador", "🏛️ Senador",
+    "Candidato do Servidor", "🗳️ Candidato do Servidor",
 }
 SALARIOS = {
     "Guarda": 3600,
@@ -1001,12 +992,11 @@ async def garantir_godmode_ideal(interaction: discord.Interaction) -> None:
     usuario = obter_usuario(interaction.user.id)
     usuario.update({
         "ultimo_cargo": "Diretor Executivo",
-        "cargo_publico": "Presidente",
         "partido": "PL",
         "alinhamento": "☀️ Lado da Luz",
     })
     salvar_dados()
-    for role_name in ("👑 Presidente", "👔 Diretor Executivo", "PL", "☀️ Lado da Luz"):
+    for role_name in ("👔 Diretor Executivo", "PL", "☀️ Lado da Luz"):
         await adicionar_cargo(interaction.guild, interaction.user.id, role_name)
 
 
@@ -1115,38 +1105,115 @@ async def cargo(interaction: discord.Interaction) -> None:
     await interaction.response.send_message(embed=embed)
 
 
-@tree.command(name="politica", description="Sorteia seu cargo político nas urnas")
+@tree.command(name="politica", description="Registra você como candidato até os resultados das urnas")
 async def politica(interaction: discord.Interaction) -> None:
-    if usuario_eh_godmode(interaction.user.id):
-        nome, _, cor, gif = ("Presidente", 35_000, discord.Color.dark_green(), GIFS["discurso"])
-    else:
-        nome, _, cor, gif = random.choice(POLITICOS)
+    nome, _, cor, gif = random.choice(POLITICOS)
 
     usuario = obter_usuario(interaction.user.id)
     usuario["cargo_publico"] = nome
     usuario["ultimo_papel"] = nome
 
     if interaction.guild is not None:
-        await aplicar_cargo_discord(
-            interaction.guild,
-            interaction.user,
-            ROLES_POLITICOS["presidente"] if usuario_eh_godmode(interaction.user.id) else nome,
-        )
-        if usuario_eh_godmode(interaction.user.id):
-            await adicionar_cargo(interaction.guild, interaction.user.id, "PL")
-            await adicionar_cargo(interaction.guild, interaction.user.id, "👔 Diretor Executivo")
-            await adicionar_cargo(interaction.guild, interaction.user.id, "☀️ Lado da Luz")
+        await aplicar_cargo_discord(interaction.guild, interaction.user, nome)
     await garantir_godmode_ideal(interaction)
 
-    if nome in {"Presidente", "Governador", "Deputado", "Prefeito"}:
-        usuario["policial"] = True
+    usuario["policial"] = nome in {"Presidente", "Governador", "Deputado", "Prefeito"}
+    salvar_dados()
 
     embed = embed_resultado(
         titulo="Apuração das urnas",
-        descricao=f"{interaction.user.mention}\nSeu cargo político é **{NOMES_CARGOS_DISCORD.get(nome, nome)}**. O salário será depositado na folha automática a cada 48 horas.",
+        descricao=(
+            f"{interaction.user.mention}\n"
+            f"Você foi registrado(a) como **{NOMES_CARGOS_DISCORD[nome]}**. "
+            "Todos os resultados do `/politica` são candidatos; o cargo político só será conhecido "
+            "após a apuração das urnas."
+        ),
         cor=cor,
         gif=gif,
     )
+    await interaction.response.send_message(embed=embed)
+
+
+presidente_group = app_commands.Group(name="presidente", description="Anúncio oficial da Presidência")
+
+
+@presidente_group.command(name="anunciar", description="Dark anuncia o vencedor da urna presidencial do site")
+async def presidente_anunciar(interaction: discord.Interaction, membro: discord.Member) -> None:
+    if not usuario_eh_godmode(interaction.user.id):
+        await interaction.response.send_message(
+            "❌ Este comando é exclusivo de Dark.",
+            ephemeral=True,
+        )
+        return
+    if interaction.guild is None:
+        await interaction.response.send_message(
+            "❌ Use este comando dentro do servidor.",
+            ephemeral=True,
+        )
+        return
+    if membro.bot:
+        await interaction.response.send_message(
+            "⚠️ O Presidente precisa ser uma pessoa, não um bot.",
+            ephemeral=True,
+        )
+        return
+
+    perfil_candidato = obter_usuario(membro.id)
+    nome_candidato = normalizar_nome_cargo("Candidato do Servidor")
+    possui_candidatura = (
+        normalizar_nome_cargo(str(perfil_candidato.get("cargo_publico", ""))) == nome_candidato
+        or any(normalizar_nome_cargo(role.name) == nome_candidato for role in membro.roles)
+    )
+    if not possui_candidatura:
+        await interaction.response.send_message(
+            f"❌ {membro.mention} precisa estar com o cargo **Candidato do Servidor** para ser anunciado.",
+            ephemeral=True,
+        )
+        return
+
+    nomes_presidente = {
+        normalizar_nome_cargo(nome)
+        for nome in ("Presidente", "Presidente da República", "👑 Presidente")
+    }
+    for outro_membro in interaction.guild.members:
+        if outro_membro.id == membro.id:
+            continue
+        cargos_presidenciais = [
+            role for role in outro_membro.roles
+            if normalizar_nome_cargo(role.name) in nomes_presidente
+        ]
+        if cargos_presidenciais:
+            await outro_membro.remove_roles(
+                *cargos_presidenciais,
+                reason="Substituição do Presidente anunciada por Dark",
+            )
+
+    for user_id, perfil in DADOS_BOT["usuarios"].items():
+        if int(user_id) != membro.id and normalizar_nome_cargo(
+            str(perfil.get("cargo_publico", ""))
+        ) in nomes_presidente:
+            perfil["cargo_publico"] = "Nenhum"
+
+    await aplicar_cargo_discord(interaction.guild, membro, "Presidente")
+    perfil_candidato["cargo_publico"] = "Presidente"
+    perfil_candidato["ultimo_papel"] = "Presidente"
+    DADOS_BOT["eleicao"].setdefault("resultado", {})["presidente"] = membro.id
+    salvar_dados()
+    registrar_noticia(
+        "Novo Presidente anunciado",
+        f"Dark anunciou {membro.display_name} como Presidente após a apuração da urna do site.",
+    )
+
+    embed = discord.Embed(
+        title="🏛️ Novo Presidente da República",
+        description=(
+            f"Após os resultados da urna do site, {membro.mention} foi anunciado(a) "
+            "por Dark como Presidente. O mandato e as permissões presidenciais do RPG estão ativos."
+        ),
+        color=discord.Color.dark_green(),
+    )
+    embed.set_image(url=GIFS["discurso"])
+    embed.set_footer(text="Politice Bot • Resultado oficial da urna")
     await interaction.response.send_message(embed=embed)
 
 
@@ -1385,6 +1452,8 @@ async def eleicao(interaction: discord.Interaction, acao: str) -> None:
             return
 
         for cargo, candidatos in DADOS_BOT["eleicao"]["votos"].items():
+            if cargo == "presidente":
+                continue
             vencedor = encontrar_vencedor_eleitoral(cargo, candidatos)
             DADOS_BOT["eleicao"]["resultado"][cargo] = vencedor
             if vencedor is not None:
@@ -1394,7 +1463,8 @@ async def eleicao(interaction: discord.Interaction, acao: str) -> None:
         salvar_dados()
         registrar_noticia("Apuração concluída", "A eleição foi encerrada e os vencedores foram definidos.")
         await interaction.response.send_message(
-            "✅ Eleição encerrada. Os cargos reais foram distribuídos automaticamente no servidor."
+            "✅ Eleição encerrada. Governador e Prefeito foram atualizados; "
+            "o Presidente só será anunciado por Dark com `/presidente anunciar` após a urna do site."
         )
         return
 
@@ -1419,17 +1489,18 @@ async def eleicao_resultado(interaction: discord.Interaction, cargo: str = "") -
         await interaction.response.send_message("❌ Canal 'resenhas' não encontrado no servidor!")
         return
 
-    cargos_validos = {"presidente": "Presidente", "governador": "Governador", "prefeito": "Prefeito"}
+    cargos_validos = {"governador": "Governador", "prefeito": "Prefeito"}
     cargo_normalizado = cargo.strip().lower()
     if cargo_normalizado and cargo_normalizado not in cargos_validos:
         await interaction.response.send_message(
-            "⚠️ Cargo inválido. Use `presidente`, `governador` ou `prefeito`.",
+            "⚠️ Use `governador` ou `prefeito` aqui. Para anunciar a Presidência, Dark deve usar `/presidente anunciar`.",
             ephemeral=True,
         )
         return
 
     if not cargo_normalizado:
-        for cargo_nome, votos in DADOS_BOT["eleicao"]["votos"].items():
+        for cargo_nome in cargos_validos:
+            votos = DADOS_BOT["eleicao"]["votos"].get(cargo_nome, {})
             DADOS_BOT["eleicao"]["resultado"][cargo_nome] = encontrar_vencedor_eleitoral(cargo_nome, votos)
 
     elif cargo_normalizado in cargos_validos:
@@ -2851,11 +2922,12 @@ PAGINAS_AJUDA = {
     ),
     "governo": (
         "Governo e eleições",
-        "Presidente: `/governo decreto texto:<texto>` publica decreto; `/governo desviar valor:<quantia>` tenta desviar verba; `/petrobras indicar usuario:<membro>` nomeia o chefe.\n"
+        "Após ser anunciado por Dark, o Presidente recebe os poderes presidenciais do RPG: `/governo decreto texto:<texto>`, `/governo desviar valor:<quantia>`, `/petrobras indicar usuario:<membro>` e `/petrobras desviar valor:<quantia>`.\n"
         "Governador: `/estado decreto texto:<texto>` ou `/estado pm_operacao faccao:<nome>`. Prefeito: `/cidade asfalto`; administração abastece o cofre em `/cidade repassar valor:<quantia>`.\n"
         "Deputado/Senador: `/congresso propor_pec texto:<texto>`, depois vote com `/congresso votar proposta:<id> voto:sim` ou `nao`; encerre com `/congresso encerrar proposta:<id>`.\n"
+        "`/politica` pode sortear **Candidato do Servidor**, que não recebe salário nem poderes de Presidente antes da apuração. Depois da urna do site, apenas Dark anuncia o vencedor e ativa a Presidência com `/presidente anunciar membro:<candidato>`.\n"
         "Administração inicia/encerra em `/eleicao acao:iniciar|encerrar`. Com eleição aberta, use `/campanha` para registrar candidatura (é preciso ter partido), publicar até 3 propostas e fazer um evento a cada 12 horas. Comícios e voluntariado custam saldo; debates são gratuitos. A popularidade desempata candidaturas com o mesmo número de votos.\n"
-        "`/campanha acao:painel` mostra candidaturas e `/noticias` traz os acontecimentos recentes. `/eleicao_resultado` publica em `#resenhas`; exige administrador ou dono do bot.",
+        "`/campanha acao:painel` mostra candidaturas e `/noticias` traz os acontecimentos recentes. `/eleicao_resultado` publica os resultados de Governador e Prefeito; a Presidência é anunciada separadamente por Dark.",
     ),
     "justica": (
         "Justiça e segurança",
@@ -3312,6 +3384,7 @@ async def menu(interaction: discord.Interaction) -> None:
 for grupo in (
     banco_group,
     governo_group,
+    presidente_group,
     stf_group,
     emprego_group,
     petrobras_group,

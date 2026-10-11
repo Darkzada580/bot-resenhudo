@@ -27,7 +27,8 @@ Os comandos globais podem levar alguns minutos para aparecer depois da primeira 
 
 - `/menu`: abre a central interativa com carteira, loja, PIX, profissões, hospital e ajuda.
 - `/cargo`: sorteia cargo corporativo e adiciona a recompensa ao saldo.
-- `/politica`: sorteia cargo político e adiciona a recompensa ao saldo.
+- `/politica`: registra o usuário como **Candidato do Servidor**; o cargo político só será conhecido após os resultados das urnas.
+- `/presidente anunciar membro:<candidato>`: exclusivo de Dark; após conferir a urna do site, anuncia o candidato vencedor e ativa o cargo/permissões de Presidente do RPG.
 - `/partido`: sorteia a filiação partidária, sem recompensa.
 - `/alinhamento`: sorteia o alinhamento da alma, sem recompensa.
 - `/carteira`: consulta o saldo acumulado.
@@ -35,14 +36,17 @@ Os comandos globais podem levar alguns minutos para aparecer depois da primeira 
 - `/sincronizar_cargos`: administrador aplica no servidor os cargos corporativo, político e partidário salvos no perfil de um membro.
 - `/campanha`: durante uma eleição aberta, permite registrar candidatura (com partido), publicar até 3 propostas, organizar eventos e consultar o painel eleitoral.
 - `/noticias`: mostra os últimos acontecimentos registrados no RPG.
-- `/eleicao`: a administração abre e encerra as eleições; a popularidade da campanha desempata candidaturas com o mesmo número de votos.
+- `/eleicao`: a administração abre e encerra as eleições; Governador e Prefeito podem ser aplicados por esses resultados. A Presidência é anunciada separadamente por Dark.
+- `/eleicao_resultado`: publica Governador e Prefeito em `#resenhas`; não anuncia nem promove Presidente.
 - `/rachadinha`: políticos podem contratar, consultar ou encerrar assessores; qualquer membro pode denunciar um contrato ativo.
 - `/lavajato denunciar`: registra uma denúncia; Polícia (com contrato Policial ativo ou cargo policial no servidor), STF/administração podem investigar cada caso uma vez a cada 6 horas por investigador. `/lavajato operacao` exige pelo menos 2 provas e continua exclusiva do STF/administração; `/lavajato painel` mostra os casos em aberto.
 - `/petrolao denunciar` e `/petrolao balanco`: registram denúncias sobre a estatal e mostram seu caixa, preço de referência, acionistas e casos abertos.
 - `/emprego profissao`: trabalhadores podem assinar contrato como Guarda, Mecânico, Advogado, Médico ou Policial. A profissão e cada cargo salarial no servidor são pagos automaticamente a cada 48 horas; `/emprego pedir_demissao` encerra sem multa e `/emprego quebrar_contrato` desconta 10% do saldo positivo.
 - Crimes tentados ou concluídos pelo `/crime` criam ocorrências investigáveis. Policiais com contrato ativo ou cargo policial no servidor podem usar `/lavajato investigar`; operações e julgamentos seguem restritos ao STF/administração.
 
-Na loja e na tela de profissões, selecione uma opção e confirme. O PIX permite selecionar o destinatário e informar o valor. Os comandos de barra existentes continuam disponíveis; os sorteios de cargo e política não mudaram.
+Na loja e na tela de profissões, selecione uma opção e confirme. O PIX permite selecionar o destinatário e informar o valor. Todos os resultados do `/politica` agora são **Candidato do Servidor**; os cargos políticos só são atribuídos após os resultados das urnas.
+
+Quem tira **Candidato do Servidor** não recebe salário nem poderes presidenciais antes de ser anunciado. Após a nomeação, o vencedor recebe o cargo de Presidente e as permissões presidenciais dos comandos do RPG (decretos, ações presidenciais e indicação da Petrobras); o Presidente anterior perde o cargo. Isso não concede permissões de administrador do Discord.
 
 Não existe saque manual de salário: a folha deposita automaticamente a cada 48 horas. Os pagamentos de cargos diferentes se acumulam; uma profissão também é paga quando há contrato ativo. Use `/folha` para conferir sua estimativa. O primeiro pagamento acontece 48 horas após a inicialização da folha.
 
